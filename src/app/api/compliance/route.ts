@@ -1,5 +1,6 @@
 // src/app/api/compliance/route.ts
-import { v4 as uuidv4 } from "uuid" // Import UUID generator
+import { v4 as uuidv4 } from "uuid"
+import { parseCircleIsApproved } from "@/utils/circleCompliance"
 // Handles POST requests to /api/compliance
 export async function POST(request: Request) {
     // Use standard Request type
@@ -72,9 +73,7 @@ export async function POST(request: Request) {
         }
         // Determine approval status based on Circle's specific response structure
         // Adjust this logic based on the actual structure of `responseData` from Circle
-        const isApproved =
-            responseData?.data?.result === "APPROVED" ||
-            responseData?.result === "APPROVED"
+        const isApproved = parseCircleIsApproved(responseData)
         console.log(`Circle API response for ${address}: Approved = ${isApproved}`)
         // 8. Return Structured Response to Client
         // Send back a consistent format including success status, approval, and original data

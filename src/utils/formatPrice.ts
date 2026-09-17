@@ -25,6 +25,7 @@ export function addDecimalsToPrice(priceStr: string) {
     try {
         // Parse as a floating-point number
         const price = parseFloat(priceStr)
+        if (Number.isNaN(price)) return priceStr
         // Convert to smallest units (multiply by 10^6 for USDC)
         const inSmallestUnits = price * 10 ** 6
         // Return as a string appropriate for blockchain calls
