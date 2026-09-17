@@ -1,193 +1,124 @@
-# NFT Marketplace 
+# NFT Marketplace
 
-The final project for the Cyfrin Web3 Full Stack crash course, where we introduce:
+En fullstack Web3-marknadsplats där användare kan minta Cake-NFTs, lista dem mot USDC, köpa listningar och se nyligen listade NFTs — med plånboksanslutning och adress-screening via Circles compliance-API.
 
-1. Indexing (rindexer)
-2. Fleek CLI
-4. Compliance Engine
-5. USDC payment
-6. Gashawk
+Byggt som slutprojekt i Cyfrin *Full Stack Web3* (utgångspunkt: deras TypeScript-startkod), utökat med egen indexer-integration, GraphQL-feed och compliance-flöde.
 
-A full-stack NFT marketplace with listing, buying, and compliance features built with Next.js, TypeScript, and Wagmi.
+## Länkar
 
-## Live demo
+| | |
+|---|---|
+| **GitHub** | https://github.com/silvergin7/ts-nft-marketplace-cu |
+| **Live (Vercel)** | https://ts-nft-marketplace-cu-starting-code.vercel.app |
 
-**GitHub:** https://github.com/silvergin7/ts-nft-marketplace-cu
+Den hostade appen kör frontend + compliance-API. **On-chain** (Anvil) och **indexer** (GraphQL) körs lokalt vid demo — se [Kör projektet](#kör-projektet).
 
-**Frontend (Vercel):** https://ts-nft-marketplace-cu-starting-code.vercel.app
+## Tech stack
 
-This dApp uses **local Anvil** (chain `31337`) and a **local rindexer GraphQL** server. For a full demo (listings, buy, mint):
+- **Frontend:** Next.js, TypeScript, Tailwind, Wagmi, RainbowKit
+- **Kontrakt:** Solidity / Foundry (Anvil, chain `31337`)
+- **Indexer:** [rindexer](https://github.com/joshstevens19/rindexer) + Postgres (Docker)
+- **Compliance:** Circle Address Screening (server-side route `/api/compliance`)
+- **Deploy:** Vercel
 
-1. Run locally: `pnpm anvil`, `pnpm indexer`, and optionally `pnpm run dev` for local UI.
-2. In your wallet, connect to **Localhost 8545** and import the Anvil test accounts from below.
+## Funktioner
 
-The Vercel link hosts the UI and **compliance API**; the **Recently Listed** feed needs a reachable `GRAPHQL_API_URL` (local indexer or a tunnel to port `3001`).
+- Koppla plånbok (MetaMask m.fl.)
+- Compliance-kontroll vid inloggning — blockerar icke-godkända adresser
+- **Recently Listed** — NFTs från indexern (filtrerar bort köpta/avbrutna listningar)
+- Minta Cake-NFTs, lista NFT, köp med USDC
+- GraphQL-proxy: frontend → `/api/graphql` → rindexer
 
-## Project structure
+## Projektstruktur
 
-The Next.js app and **rindexer** live in one repo:
+```
+├── src/                    # Next.js-app (sidor, komponenter, API routes)
+├── marketplaceIndexer/     # rindexer.yaml, ABIs, docker-compose (Postgres)
+├── foundry/                # Solidity-kontrakt och scripts
+├── marketplace-anvil.json  # Förifylld kedja för pnpm anvil
+└── .env.local              # App-hemligheter (ej i git)
+```
 
-- `src/` — frontend + `/api/compliance`
-- `marketplaceIndexer/` — rindexer config (`rindexer.yaml`), contract ABIs, Docker Postgres
-- `marketplace-anvil.json` — preloaded Anvil state for `pnpm anvil`
+`pnpm indexer` och `pnpm reset-indexer` använder mappen `marketplaceIndexer/`.
 
-Indexer commands (`pnpm indexer`, `pnpm reset-indexer`) run from the repo root and `cd` into `marketplaceIndexer/`.
+## Kom igång
 
-### Indexer setup (first time)
+### Krav
+
+Node, pnpm, Foundry (**Anvil v1.0.x** rekommenderas för `marketplace-anvil.json`), Docker, rindexer.
+
+### Installera
+
+```bash
+git clone https://github.com/silvergin7/ts-nft-marketplace-cu.git
+cd ts-nft-marketplace-cu
+pnpm install
+```
+
+### Miljövariabler
+
+Kopiera `.env.example` → `.env.local` och fyll i:
+
+- `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` — [WalletConnect Cloud](https://cloud.walletconnect.com/)
+- `GRAPHQL_API_URL=http://localhost:3001/graphql`
+- `ENABLE_COMPLIANCE_CHECK` — `true` / `false`
+- `CIRCLE_API_KEY` — [Circle Developer Portal](https://console.circle.com/api-keys) (behövs om compliance är på)
+
+Indexer (Postgres):
 
 ```bash
 cd marketplaceIndexer
 cp .env.example .env
 docker compose up -d
 cd ..
-pnpm indexer
 ```
 
-GraphQL (local): `http://localhost:3001/graphql` — proxied in dev via `next.config.ts` as `/api/graphql`.
+### Plånbok (Anvil)
 
-# STARTING CODEBASE!
+| Fält | Värde |
+|------|--------|
+| RPC | `http://127.0.0.1:8545` |
+| Chain ID | `31337` |
+| Symbol | ETH |
 
-We will need to implement:
-- Update the home page
-  - Add all recently listed NFTs
-  - Indexer
-- Compliance Engine
+Testkonton med förifylld state (efter `pnpm anvil`):
 
-If you wish to see what the final product looks like, head over to the `main` branch!
+- Konto **0:** `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`
+- Konto **9:** `0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6`
 
+### Kör projektet
 
-# Table of Contents
-
-- [NFT Marketplace](#nft-marketplace)
-- [STARTING CODEBASE!](#starting-codebase)
-- [Table of Contents](#table-of-contents)
-- [Getting Started](#getting-started)
-  - [Requirements](#requirements)
-    - [Environment Variables](#environment-variables)
-  - [Setup](#setup)
-    - [Add Anvil to your metamask](#add-anvil-to-your-metamask)
-    - [Add Anvil accounts to your Metamask](#add-anvil-accounts-to-your-metamask)
-    - [Docker .env](#docker-env)
-  - [Running the Application](#running-the-application)
-- [Database Reset](#database-reset)
-- [Features](#features)
-- [Addresses for testing](#addresses-for-testing)
-
-# Getting Started
-
-## Requirements
-
-- [node](https://nodejs.org/en/download)
-    - You'll know you've installed it right if you can run `node --version` and get a response like `v18.0.0`
-- [pnpm](https://pnpm.io/)
-    - You'll know you've installed it right if you can run `pnpm --version` and get a response like `8.0.0`
-- [git](https://git-scm.com/downloads)
-    - You'll know you've installed it right if you can run `git --version` and get a response like `git version 2.33.0`
-- [foundry/anvil](https://book.getfoundry.sh/)
-    - You'll know you've installed it right if you can run `anvil --version` and get a response like `anvil Version: 1.0.0-stable`
-- [docker](https://www.docker.com/get-started/)
-    - You'll know you've installed it right if you can run `docker --version` and get a response like `Docker version 27.4.0, build bde2b89`
-- [rindexer](https://github.com/joshstevens19/rindexer)
-    - ou'll know you've installed it right if you can run `rindexer --version` and get a response like `rindexer 0.15.2`
-
-### Environment Variables
-
-Create a `.env.local` file with the following environment variables:
-
-```
-NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
-GRAPHQL_API_URL=http://localhost:3001/graphql
-ENABLE_COMPLIANCE_CHECK=false
-CIRCLE_API_KEY=TEST_API_KEY
-```
-
-- `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID`: Get this from [WalletConnect Cloud](https://cloud.walletconnect.com/)
-- `GRAPHQL_API_URL`: Points to your local indexer GraphQL endpoint
-- `ENABLE_COMPLIANCE_CHECK`: To enable compliance checks, set this to `true`. If you set this to false, you don't need the `CIRCLE_API_KEY`
-- `CIRCLE_API_KEY`: Get this from [Circle Developer Portal](https://console.circle.com/api-keys)
-
-## Setup
+Tre terminaler:
 
 ```bash
-git clone https://github.com/cyfrin/ts-nft-marketplace-cu
-cd nft-marketplace
-pnpm install
+pnpm anvil      # lokal kedja med kontrakt + NFTs
+pnpm indexer    # rindexer + GraphQL :3001
+pnpm run dev    # Next.js :3000
 ```
 
-### Add Anvil to your metamask
+`pnpm anvil` laddar `marketplace-anvil.json` — samma adresser varje gång.
 
-Add the following network to your metamask:
-- Name: Anvil
-- RPC URL: http://127.0.0.1:8545
-- Chain ID: 31337
-- Currency Symbol: ETH
-
-### Add Anvil accounts to your Metamask
-
-```
-Private Keys
-==================
-
-(0) 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 # This one
-(9) 0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6 # This one
-```
-
-Add private keys `0` and `9` to your Metamask, these will have NFTs already loaded when you run `pnpm anvil` later. 
-
-### Docker .env
-
-For working with a postgres DB, add a `.env` file to `./marketplaceIndexer/.env`:
-
-```
-DATABASE_URL=postgresql://postgres:rindexer@localhost:5440/postgres
-POSTGRES_PASSWORD=rindexer
-```
-
-This will work with the default commands we run below. If you wish to change your database, you may change your endpoints.
-
-## Running the Application
-
-The application requires three components running in parallel:
-
-- Local Ethereum blockchain (anvil), this will come with some blockchain state already loaded. Including contracts, tokens, and NFTs in the accounts you added to Metamask above.
-- Blockchain indexer
-- Next.js application
-
-```bash
-pnpm anvil
-pnpm indexer
-pnpm run dev
-```
-
-In your Metamask now, select account 0 which you imported from the step above, and add the following NFT with tokenID 0:
-
-```
-0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
-```
-
-You should see the NFT in your metamask. Note: This will only work while `pnpm anvil` is running!
-
-# Database Reset
-If you need to reset the indexer database:
+### Indexer-databas
 
 ```bash
 pnpm run reset-indexer
 ```
 
-This will stop the indexer, remove the volume, and restart it.
+## Kontrakt (Anvil)
 
-# Features
+| | Adress |
+|---|--------|
+| USDC | `0x5FbDB2315678afecb367f032d93F642f64180aa3` |
+| NFT Marketplace | `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512` |
+| Cake NFT | `0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0` |
+| Mood NFT | `0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9` |
 
-- NFT Minting: Create new NFTs with the CakeNFT contract
-- NFT Listing: List your NFTs for sale on the marketplace
-- NFT Buying: Purchase NFTs that others have listed
-- Recently Listed NFTs: View the most recent NFTs available for purchase
-- Address Compliance: Integrated with Circle's compliance API to screen addresses
-- Wallet Integration: Connect with MetaMask, Rainbow, and other wallets via WalletConnect
+## Vercel
 
-# Addresses for testing
+Frontend deployas till Vercel. Sätt samma env-variabler i Vercel-projektet som i `.env.local` (utom `GRAPHQL_API_URL` om indexern bara kör lokalt).
 
-- usdc: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-- nftMarketplace: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
-- cakeNft: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
-- moodNft: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+För **Recently Listed** mot produktion behöver GraphQL nås publikt (t.ex. tunnel till port `3001`) eller körs hela demon lokalt.
+
+## Licens / attribution
+
+Utgår från öppen kurskod från [Cyfrin](https://github.com/cyfrin/ts-nft-marketplace-cu). Implementation, indexer-setup och deployment är mitt eget arbete i detta repo.
