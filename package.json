@@ -12,8 +12,12 @@
     "indexer": "cd marketplaceIndexer && rindexer start all",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
-    "test:cache": "pnpm synpress",
-    "test:e2e": "pnpm exec playwright test",
+    "test:cache": "synpress",
+    "test:e2e": "playwright test",
+    "test:e2e:smoke": "SKIP_ANVIL=1 playwright test --project=smoke",
+    "test:e2e:wallet": "playwright test --project=wallet",
+    "test:e2e:install": "playwright install chromium",
+    "test:e2e:full": "pnpm run test:cache && pnpm run test:e2e",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\""
   },
@@ -32,6 +36,7 @@
     "wagmi": "^2.14.15"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@synthetixio/synpress": "^4.0.10",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",

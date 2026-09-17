@@ -6,7 +6,7 @@ import { filterActiveListings } from "@/utils/filterActiveListings"
 export default function useRecentlyListedNFTs() {
     const { data, isLoading, error } = useQuery<NFTQueryResponse>({
         queryKey: ["recentNFTs"],
-        queryFn: fetchRecentNfts,
+        queryFn: () => fetchRecentNfts(),
     })
 
     const nftDataList = useMemo(() => filterActiveListings(data?.data), [data])

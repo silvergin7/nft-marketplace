@@ -25,7 +25,7 @@ importers:
         version: 16.10.0
       next:
         specifier: 16.3.5
-        version: 16.3.5(@playwright/test@1.51.1)(@types/node@20.17.27)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 16.3.5(@playwright/test@1.63.0)(@types/node@20.17.27)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -45,9 +45,12 @@ importers:
         specifier: ^2.14.15
         version: 2.14.15(@tanstack/query-core@5.69.0)(@tanstack/react-query@5.69.0(react@19.0.0))(@types/react@19.0.12)(bufferutil@4.0.9)(react@19.0.0)(supports-color@7.2.0)(typescript@5.8.2)(utf-8-validate@5.0.10)(viem@2.23.15(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4))(zod@3.22.4)
     devDependencies:
+      '@playwright/test':
+        specifier: ^1.63.0
+        version: 1.63.0
       '@synthetixio/synpress':
         specifier: ^4.0.10
-        version: 4.0.10(@depay/solana-web3.js@1.98.0)(@depay/web3-blockchains@9.8.0)(@playwright/test@1.51.1)(bufferutil@4.0.9)(debug@4.4.0(supports-color@7.2.0))(ethers@5.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(playwright-core@1.48.2)(postcss@8.5.3)(supports-color@7.2.0)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4)
+        version: 4.0.10(@depay/solana-web3.js@1.98.0)(@depay/web3-blockchains@9.8.0)(@playwright/test@1.63.0)(bufferutil@4.0.9)(debug@4.4.0(supports-color@7.2.0))(ethers@5.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(playwright-core@1.48.2)(postcss@8.5.3)(supports-color@7.2.0)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4)
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.0.16
@@ -1055,9 +1058,9 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@playwright/test@1.51.1':
-    resolution: {integrity: sha512-nM+kEaTSAoVlXmMPH10017vn3FSiFqr/bh4fKg9vmAdMfd9SDqRZNvPSiAHADc/itWak+qPvMPZQOPwCBW7k7Q==}
-    engines: {node: '>=18'}
+  '@playwright/test@1.63.0':
+    resolution: {integrity: sha512-oxMK4vllB9RK5NQ2l1pq1IfOf2AvnEuj/vYGDj0H2nMtmtZpKtCwt/l00GEO6xjGfpBNAvjovvYdCm50dRQkpQ==}
+    engines: {node: '>=20'}
     hasBin: true
 
   '@rainbow-me/rainbowkit@2.2.4':
@@ -2053,11 +2056,6 @@ packages:
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
-  fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -2655,14 +2653,14 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright-core@1.51.1:
-    resolution: {integrity: sha512-/crRMj8+j/Nq5s8QcvegseuyeZPxpQCZb6HNk3Sos3BlZyAknRjoyJPFWkpNn8v0+P3WiwqFF8P+zQo4eqiNuw==}
-    engines: {node: '>=18'}
+  playwright-core@1.63.0:
+    resolution: {integrity: sha512-rYCsBF/M5HjUch52bbtVONEFjv6Xu8sm8h72dNlR5bzIE1fvC/bxgspzkjSfU+MweEMmPM8KJebG6nnyxo5mCg==}
+    engines: {node: '>=20'}
     hasBin: true
 
-  playwright@1.51.1:
-    resolution: {integrity: sha512-kkx+MB2KQRkyxjYPc3a0wLZZoDczmppyGJIvQ43l+aZihkaVvmu/21kiyaHeHjiFxjxNNFnUncKmcGIyOojsaw==}
-    engines: {node: '>=18'}
+  playwright@1.63.0:
+    resolution: {integrity: sha512-+7ziBLidS4NaNCdt57SUDT+wYmmd5fmiQejUic/kb+YsYSCPyOOE9sebzMjNmQrsnNpDJqd4WHvV/8lfKfUDUg==}
+    engines: {node: '>=20'}
     hasBin: true
 
   pngjs@5.0.0:
@@ -4486,9 +4484,9 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@playwright/test@1.51.1':
+  '@playwright/test@1.63.0':
     dependencies:
-      playwright: 1.51.1
+      playwright: 1.63.0
 
   '@rainbow-me/rainbowkit@2.2.4(@tanstack/react-query@5.69.0(react@19.0.0))(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(viem@2.23.15(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4))(wagmi@2.14.15(@tanstack/query-core@5.69.0)(@tanstack/react-query@5.69.0(react@19.0.0))(@types/react@19.0.12)(bufferutil@4.0.9)(react@19.0.0)(supports-color@7.2.0)(typescript@5.8.2)(utf-8-validate@5.0.10)(viem@2.23.15(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4))(zod@3.22.4))':
     dependencies:
@@ -4633,13 +4631,13 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@synthetixio/ethereum-wallet-mock@0.0.11(@depay/solana-web3.js@1.98.0)(@depay/web3-blockchains@9.8.0)(@playwright/test@1.51.1)(bufferutil@4.0.9)(ethers@5.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4)':
+  '@synthetixio/ethereum-wallet-mock@0.0.11(@depay/solana-web3.js@1.98.0)(@depay/web3-blockchains@9.8.0)(@playwright/test@1.63.0)(bufferutil@4.0.9)(ethers@5.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4)':
     dependencies:
       '@depay/web3-client': 10.18.6(@depay/solana-web3.js@1.98.0)(@depay/web3-blockchains@9.8.0)(ethers@5.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))
       '@depay/web3-mock': 14.19.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@depay/web3-mock-evm': 14.19.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      '@playwright/test': 1.51.1
-      '@synthetixio/synpress-core': 0.0.11(@playwright/test@1.51.1)
+      '@playwright/test': 1.63.0
+      '@synthetixio/synpress-core': 0.0.11(@playwright/test@1.63.0)
       viem: 2.9.9(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4)
     transitivePeerDependencies:
       - '@depay/solana-web3.js'
@@ -4673,15 +4671,15 @@ snapshots:
       - ts-node
       - typescript
 
-  '@synthetixio/synpress-core@0.0.11(@playwright/test@1.51.1)':
+  '@synthetixio/synpress-core@0.0.11(@playwright/test@1.63.0)':
     dependencies:
-      '@playwright/test': 1.51.1
+      '@playwright/test': 1.63.0
 
-  '@synthetixio/synpress-metamask@0.0.11(@playwright/test@1.51.1)(bufferutil@4.0.9)(debug@4.4.0(supports-color@7.2.0))(playwright-core@1.48.2)(postcss@8.5.3)(supports-color@7.2.0)(typescript@5.8.2)(utf-8-validate@5.0.10)':
+  '@synthetixio/synpress-metamask@0.0.11(@playwright/test@1.63.0)(bufferutil@4.0.9)(debug@4.4.0(supports-color@7.2.0))(playwright-core@1.48.2)(postcss@8.5.3)(supports-color@7.2.0)(typescript@5.8.2)(utf-8-validate@5.0.10)':
     dependencies:
-      '@playwright/test': 1.51.1
+      '@playwright/test': 1.63.0
       '@synthetixio/synpress-cache': 0.0.11(debug@4.4.0(supports-color@7.2.0))(playwright-core@1.48.2)(postcss@8.5.3)(supports-color@7.2.0)(typescript@5.8.2)
-      '@synthetixio/synpress-core': 0.0.11(@playwright/test@1.51.1)
+      '@synthetixio/synpress-core': 0.0.11(@playwright/test@1.63.0)
       '@viem/anvil': 0.0.7(bufferutil@4.0.9)(debug@4.4.0(supports-color@7.2.0))(utf-8-validate@5.0.10)
       fs-extra: 11.2.0
       zod: 3.22.4
@@ -4697,13 +4695,13 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@synthetixio/synpress@4.0.10(@depay/solana-web3.js@1.98.0)(@depay/web3-blockchains@9.8.0)(@playwright/test@1.51.1)(bufferutil@4.0.9)(debug@4.4.0(supports-color@7.2.0))(ethers@5.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(playwright-core@1.48.2)(postcss@8.5.3)(supports-color@7.2.0)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4)':
+  '@synthetixio/synpress@4.0.10(@depay/solana-web3.js@1.98.0)(@depay/web3-blockchains@9.8.0)(@playwright/test@1.63.0)(bufferutil@4.0.9)(debug@4.4.0(supports-color@7.2.0))(ethers@5.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(playwright-core@1.48.2)(postcss@8.5.3)(supports-color@7.2.0)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4)':
     dependencies:
-      '@playwright/test': 1.51.1
-      '@synthetixio/ethereum-wallet-mock': 0.0.11(@depay/solana-web3.js@1.98.0)(@depay/web3-blockchains@9.8.0)(@playwright/test@1.51.1)(bufferutil@4.0.9)(ethers@5.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4)
+      '@playwright/test': 1.63.0
+      '@synthetixio/ethereum-wallet-mock': 0.0.11(@depay/solana-web3.js@1.98.0)(@depay/web3-blockchains@9.8.0)(@playwright/test@1.63.0)(bufferutil@4.0.9)(ethers@5.8.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.4)
       '@synthetixio/synpress-cache': 0.0.11(debug@4.4.0(supports-color@7.2.0))(playwright-core@1.48.2)(postcss@8.5.3)(supports-color@7.2.0)(typescript@5.8.2)
-      '@synthetixio/synpress-core': 0.0.11(@playwright/test@1.51.1)
-      '@synthetixio/synpress-metamask': 0.0.11(@playwright/test@1.51.1)(bufferutil@4.0.9)(debug@4.4.0(supports-color@7.2.0))(playwright-core@1.48.2)(postcss@8.5.3)(supports-color@7.2.0)(typescript@5.8.2)(utf-8-validate@5.0.10)
+      '@synthetixio/synpress-core': 0.0.11(@playwright/test@1.63.0)
+      '@synthetixio/synpress-metamask': 0.0.11(@playwright/test@1.63.0)(bufferutil@4.0.9)(debug@4.4.0(supports-color@7.2.0))(playwright-core@1.48.2)(postcss@8.5.3)(supports-color@7.2.0)(typescript@5.8.2)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - '@depay/solana-web3.js'
       - '@depay/web3-blockchains'
@@ -5946,9 +5944,6 @@ snapshots:
 
   fs.realpath@1.0.0: {}
 
-  fsevents@2.3.2:
-    optional: true
-
   fsevents@2.3.3:
     optional: true
 
@@ -6347,7 +6342,7 @@ snapshots:
 
   nanoid@3.3.19: {}
 
-  next@16.3.5(@playwright/test@1.51.1)(@types/node@20.17.27)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  next@16.3.5(@playwright/test@1.63.0)(@types/node@20.17.27)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@next/env': 16.3.5
       '@swc/helpers': 0.5.23
@@ -6366,7 +6361,7 @@ snapshots:
       '@next/swc-linux-x64-musl': 16.3.5
       '@next/swc-win32-arm64-msvc': 16.3.5
       '@next/swc-win32-x64-msvc': 16.3.5
-      '@playwright/test': 1.51.1
+      '@playwright/test': 1.63.0
       sharp: 0.35.4(@types/node@20.17.27)
     transitivePeerDependencies:
       - '@babel/core'
@@ -6513,13 +6508,11 @@ snapshots:
 
   playwright-core@1.48.2: {}
 
-  playwright-core@1.51.1: {}
+  playwright-core@1.63.0: {}
 
-  playwright@1.51.1:
+  playwright@1.63.0:
     dependencies:
-      playwright-core: 1.51.1
-    optionalDependencies:
-      fsevents: 2.3.2
+      playwright-core: 1.63.0
 
   pngjs@5.0.0: {}
 

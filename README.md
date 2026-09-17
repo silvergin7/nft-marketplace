@@ -121,14 +121,65 @@ For **Recently Listed** in production, GraphQL must be reachable publicly (e.g. 
 
 ## Tests
 
-Unit tests use [Vitest](https://vitest.dev/):
+### Unit (Vitest)
 
 ```bash
 pnpm run test:unit        # single run (CI)
 pnpm run test:unit:watch  # watch mode
 ```
 
-Tests live under `tests/unit/` (utils, GraphQL client, compliance API, contract constants).
+Tests: `tests/unit/` (utils, GraphQL client, compliance API, contract constants).
+
+### E2E (Playwright)
+
+E2E is split into a **stable smoke suite** (no wallet connection) and an **experimental wallet suite** (RainbowKit + [Synpress](https://docs.synpress.io/) injected mock or optional MetaMask extension).
+
+**First time:**
+
+```bash
+pnpm install
+pnpm run test:e2e:install   # Chromium for Playwright
+```
+
+**Stable smoke (recommended for CI):**
+
+```bash
+pnpm run test:e2e:smoke
+```
+
+Runs `tests/e2e/smoke/` only — app load, static pages, real `POST /api/compliance` (Circle not called; `ENABLE_COMPLIANCE_CHECK=false` on the test server). Skips Anvil (`SKIP_ANVIL=1`). **No RainbowKit connect step.**
+
+**Experimental wallet flows:**
+
+```bash
+pnpm run test:e2e:wallet
+```
+
+Runs `tests/e2e/wallet/` — Synpress wallet mock, compliance UI after connect, listings UI, optional MetaMask extension (skipped unless `.cache-synpress` exists). Starts **Anvil** via global setup when port `8545` is free.
+
+**All E2E:**
+
+```bash
+pnpm run test:e2e
+```
+
+If `pnpm run dev` is already running on `:3000`, Playwright reuses it locally (`reuseExistingServer` when `CI` is unset).
+
+**Optional — real MetaMask extension** (fragile on some OS/browser versions):
+
+```bash
+pnpm run test:cache         # builds .cache-synpress (one-time)
+pnpm run test:e2e:wallet    # runs marketplace-metamask.spec.ts when cache exists
+```
+
+| Folder / project | What it covers |
+|------------------|----------------|
+| `tests/e2e/smoke/` (`--project=smoke`) | Shell loads, connect prompt, list-nft page; compliance API route |
+| `tests/e2e/wallet/` (`--project=wallet`) | Wallet connect, compliance UI, GraphQL listings UI, optional extension |
+
+Shared mocks: `tests/e2e/helpers/`. Sample GraphQL payloads: `tests/e2e/fixtures/marketplaceGraphql.ts`.
+
+**Not covered in E2E (by design):** on-chain list/buy transactions and waiting for a real rindexer re-index — unit tests and local manual runs cover those; listing refresh in wallet tests is simulated via mocked GraphQL + page reload.
 
 ## License / attribution
 
