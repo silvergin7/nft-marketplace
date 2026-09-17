@@ -7,7 +7,7 @@ import {
     emptyMarketplaceGraphql,
     singleActiveListingGraphql,
 } from "../fixtures/marketplaceGraphql"
-import { mockMarketplaceGraphql, mockMarketplaceGraphqlSequence } from "../helpers/mockGraphql"
+import { mockMarketplaceGraphql } from "../helpers/mockGraphql"
 
 test.describe("Recently listed (GraphQL → filter → UI)", () => {
     test.beforeEach(async ({ page }) => {
@@ -57,16 +57,15 @@ test.describe("Recently listed (GraphQL → filter → UI)", () => {
         page,
         ethereumWalletMock,
     }) => {
-        await mockMarketplaceGraphqlSequence(page, [
-            emptyMarketplaceGraphql,
-            singleActiveListingGraphql,
-        ])
+        await mockMarketplaceGraphql(page, emptyMarketplaceGraphql)
         await page.reload()
 
         await connectMockWallet(page, ethereumWalletMock)
         await expect(page.getByText("No active NFT listings found.")).toBeVisible()
 
+        await mockMarketplaceGraphql(page, singleActiveListingGraphql)
         await page.reload()
+        await connectMockWallet(page, ethereumWalletMock)
         await expect(page.getByText("Token #1")).toBeVisible({ timeout: 45_000 })
     })
 })
